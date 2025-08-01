@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crop Image</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.13/dist/cropper.min.css"/>
+  <style>
+    body { background: #0f172a; color: white; padding: 2rem; text-align: center; }
+    img { max-width: 100%; }
+    canvas { display: none; }
+  </style>
+</head>
+<body>
+  <h2>Crop Image</h2>
+  <input type="file" id="fileInput" accept="image/*"><br><br>
+  <img id="image" />
+  <br><br>
+  <button onclick="cropImage()">Crop & Save</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.13/dist/cropper.min.js"></script>
+  <script>
+    let cropper;
+    const image = document.getElementById('image');
+    document.getElementById('fileInput').addEventListener('change', e => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        image.src = reader.result;
+        cropper = new Cropper(image, { aspectRatio: 1, viewMode: 1 });
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function cropImage() {
+      const canvas = cropper.getCroppedCanvas();
+      const dataURL = canvas.toDataURL();
+      localStorage.setItem('croppedImage', dataURL);
+      window.opener.postMessage({ type: 'setImage', data: dataURL }, '*');
+      window.close();
+    }
+  </script>
+</body>
+</html>
