@@ -1,0 +1,181 @@
+body {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    transition: background 0.4s ease;
+  }
+  
+  .light-mode {
+    background: #f0f4f8;
+    color: #111;
+  }
+  
+  .dark-mode {
+    background: #111827;
+    color: white;
+  }
+  
+  /* Splash Screen Styles */
+  .splash-body {
+    background: linear-gradient(135deg, #111827, #1e3a8a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    transition: opacity 1s ease;
+  }
+  
+  .splash-screen {
+    text-align: center;
+  }
+  
+  .splash-logo {
+    font-size: 3.5rem;
+    display: flex;
+    justify-content: center;
+    color: #c084fc;
+  }
+  
+  .splash-logo span {
+    display: inline-block;
+    opacity: 0;
+    transform: scale(0.5);
+    animation: flyIn 1s forwards;
+  }
+  
+  .splash-logo .left { animation-name: flyLeft; }
+  .splash-logo .right { animation-name: flyRight; }
+  .splash-logo .center { animation-name: zoomIn; }
+  
+  .splash-logo span:nth-child(1) { animation-delay: 0.3s; }
+  .splash-logo span:nth-child(2) { animation-delay: 0.6s; }
+  .splash-logo span:nth-child(3) { animation-delay: 0.9s; }
+  .splash-logo span:nth-child(4) { animation-delay: 1.2s; }
+  .splash-logo span:nth-child(5) { animation-delay: 1.5s; }
+  .splash-logo span:nth-child(6) { animation-delay: 1.8s; }
+  .splash-logo span:nth-child(7) { animation-delay: 2.1s; }
+  
+  @keyframes flyLeft {
+    0% { opacity: 0; transform: translateX(-100px) scale(0.5); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  
+  @keyframes flyRight {
+    0% { opacity: 0; transform: translateX(100px) scale(0.5); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  
+  @keyframes zoomIn {
+    0% { opacity: 0; transform: scale(0.2); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  
+  .fade-out {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  
+  /* Topbar, Profile, Feed, etc. */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: #1e3a8a;
+    color: white;
+  }
+  
+  .banner img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+  }
+  
+  .profile {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+  
+  .pfp {
+    width: 72px;
+    height: 72px;
+    background: #4ade80;
+    border-radius: 50%;
+    margin-right: 1rem;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .bio {
+    padding: 1rem 2rem;
+    background: #e0e7ff;
+  }
+  
+  .feed {
+    padding: 2rem;
+  }
+  
+  .post {
+    max-width: 480px;
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .comment-section {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .comment-section textarea {
+    padding: 0.5rem;
+    font-family: inherit;
+    margin-bottom: 0.5rem;
+  }
+  
+  .comment-section button {
+    align-self: flex-end;
+    padding: 0.5rem 1rem;
+    background: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 6px;
+  }
+  
+  /* Settings Modal */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  .modal {
+    background: #1e1b2e;
+    color: white;
+    padding: 2rem;
+    border-radius: 14px;
+    width: 90%;
+    max-width: 420px;
+  }
+  
+  .glow-btn {
+    background: #9333ea;
+    border: none;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 8px #9333ea;
+    cursor: pointer;
+  }
+  
+  .glow-btn:hover {
+    background: #a855f7;
+    box-shadow: 0 0 12px #a855f7;
+  }
+  

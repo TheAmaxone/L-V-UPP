@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>L‑V‑UPP</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="firebase-config.js"></script>
+  <script defer src="app.js"></script>
+  <script>
+    if (!sessionStorage.getItem('splashPlayed')) {
+      sessionStorage.setItem('splashPlayed', 'true');
+      window.location.href = 'splash.html';
+    }
+  </script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC7Ty0GIWo0BcMxEUencjePmBv7YvHgVzE",
+    authDomain: "l-v-upp.firebaseapp.com",
+    projectId: "l-v-upp",
+    storageBucket: "l-v-upp.appspot.com",
+    messagingSenderId: "844032349325",
+    appId: "1:844032349325:web:76a64655c7353375ebfec4",
+    measurementId: "G-5Y8EC8YW8R"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  window.loginWithGoogle = function () {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        alert(`Welcome ${user.displayName}`);
+        document.getElementById('username').textContent = user.displayName;
+        document.getElementById('profilePic').style.backgroundImage = `url(${user.photoURL})`;
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Login Failed: ' + error.message);
+      });
+  };
+</script>
+
+</head>
+<body class="dark-mode">
+  <div class="topbar">
+    <div class="logo">L‑V‑UPP</div>
+    <button onclick="toggleSettings()" class="glow-btn">Account Status</button>
+  </div>
+
+  <div class="banner">
+    <img id="bannerImage" src="assets/placeholder.jpg" />
+  </div>
+
+  <div class="profile">
+    <div id="profilePic" class="pfp" style="background-image:url('assets/placeholder.jpg')"></div>
+    <div>
+      <h3 id="username">@kaka</h3>
+      <p>Level 7</p>
+    </div>
+  </div>
+
+  <div class="bio">
+    <p>Coding my way to the top 💻✨</p>
+  </div>
+
+  <div class="feed">
+    <img class="post" src="assets/placeholder.jpg" />
+    <div class="comment-section">
+      <textarea placeholder="Say something..."></textarea>
+      <button>Comment</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="settingsOverlay">
+    <div class="modal">
+      <h2>Profile Settings</h2>
+      <label>Username: <input type="text" id="usernameInput"></label>
+      <label>Profile Picture: <input type="file" accept="image/*" onchange="openCropTab('pfp')"></label>
+      <label>Banner: <input type="file" accept="image/*" onchange="openCropTab('banner')"></label>
+      <label>Theme Color: <input type="color" id="themeColor"></label>
+      <label><input type="checkbox" id="autoTheme"> Auto-color from Banner</label>
+      <button onclick="applySettings()" class="glow-btn">Save</button>
+      <button onclick="toggleSettings()">Close</button>
+      <button onclick="loginWithGoogle()" class="glow-btn">Login with Google</button>
+    </div>
+  </div>
+</body>
+</html>
